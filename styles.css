@@ -57,6 +57,7 @@ h3{font-size:1.5rem;margin-bottom:.4rem}
 #integrantes .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
 #integrantes .caja{padding:0;overflow:hidden}
 .integrante-img{display:block;width:100%;height:auto}
+#menu .menu-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 
 /* Precios */
 .lista{border:4px solid var(--piel);border-radius:20px;overflow:hidden}
@@ -95,6 +96,6 @@ tr:last-child td{border-bottom:0}
 .acciones{margin-top:1.4rem;display:flex;gap:1rem;flex-wrap:wrap}
 
 footer{background:var(--piel);color:var(--negro);text-align:center;padding:2rem 1rem;font-family:"Lilita One";font-size:1.2rem}
-@media(max-width:800px){#integrantes .grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:480px){#integrantes .grid{grid-template-columns:1fr}}
+@media(max-width:800px){#integrantes .grid,#menu .menu-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){#integrantes .grid,#menu .menu-grid{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
