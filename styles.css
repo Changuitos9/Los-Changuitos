@@ -21,6 +21,8 @@ a{color:inherit}
 nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--negro);border-bottom:4px solid var(--piel)}
 nav .in{max-width:1100px;margin:auto;display:flex;gap:.4rem;align-items:center;padding:.6rem 1rem;overflow-x:auto}
 nav .brand{font-family:"Lilita One",sans-serif;font-size:1.3rem;margin-right:auto;white-space:nowrap}
+nav a.brand{border:0;padding:0;font-size:1.5rem}
+nav a.brand:hover{background:transparent;color:var(--piel)}
 nav a{white-space:nowrap;text-decoration:none;font-size:.85rem;padding:.35rem .7rem;border:2px solid var(--piel);border-radius:99px}
 nav a:hover{background:var(--piel);color:var(--negro)}
 
