@@ -138,20 +138,23 @@
 <section id="encuesta" class="claro">
   <div class="wrap">
     <h2>Encuesta de satisfacción</h2>
-    <div class="caja rellena" style="max-width:640px">
-      <h3>Placeholder</h3>
-      <p>Placeholder</p>
+    <form class="caja rellena" id="encuesta-form" style="max-width:640px">
+      <h3>¿Cómo fue tu experiencia?</h3>
+      <p>Calificá tu experiencia del 1 al 5. Si querés, también podés dejarnos un comentario.</p>
       <div class="estrellas" role="group" aria-label="Puntaje de 1 a 5">
-        <button type="button" aria-pressed="false" data-v="1">1</button>
-        <button type="button" aria-pressed="false" data-v="2">2</button>
-        <button type="button" aria-pressed="false" data-v="3">3</button>
-        <button type="button" aria-pressed="false" data-v="4">4</button>
-        <button type="button" aria-pressed="false" data-v="5">5</button>
+        <button type="button" aria-label="1 de 5" aria-pressed="false" data-v="1">1</button>
+        <button type="button" aria-label="2 de 5" aria-pressed="false" data-v="2">2</button>
+        <button type="button" aria-label="3 de 5" aria-pressed="false" data-v="3">3</button>
+        <button type="button" aria-label="4 de 5" aria-pressed="false" data-v="4">4</button>
+        <button type="button" aria-label="5 de 5" aria-pressed="false" data-v="5">5</button>
       </div>
-      <textarea id="comentario" placeholder="Placeholder" aria-label="Placeholder"></textarea>
-      <div class="acciones"><button type="button" class="btn inv" id="enviar">Placeholder</button></div>
-      <div class="gracias" id="gracias" role="status">Placeholder</div>
-    </div>
+      <p class="encuesta-error" id="encuesta-error" role="alert" hidden>Elegí una puntuación antes de enviar.</p>
+      <label for="comentario">Comentario (opcional)</label>
+      <textarea id="comentario" placeholder="Escribí tu comentario aquí" aria-label="Comentario (opcional)"></textarea>
+      <div class="honeypot" aria-hidden="true"><label for="sitio-web">Dejá este campo vacío</label><input id="sitio-web" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+      <div class="acciones"><button type="submit" class="btn inv" id="enviar-encuesta">Enviar encuesta</button></div>
+      <div class="gracias" id="gracias" role="status" aria-live="polite"></div>
+    </form>
   </div>
 </section>
 
@@ -189,14 +192,49 @@
 <script>
 (function(){
   var stars=document.querySelectorAll('.estrellas button');
+  var surveyForm=document.getElementById('encuesta-form');
+  var surveyError=document.getElementById('encuesta-error');
+  var thanks=document.getElementById('gracias');
+  var comment=document.getElementById('comentario');
+  var honeypot=document.getElementById('sitio-web');
+  var submitButton=document.getElementById('enviar-encuesta');
+  var selectedRating=null;
   stars.forEach(function(b){
     b.addEventListener('click',function(){
       var v=+b.dataset.v;
+      selectedRating=v;
       stars.forEach(function(s){s.setAttribute('aria-pressed',(+s.dataset.v===v)?'true':'false')});
+      surveyError.hidden=true;
+      thanks.classList.remove('on');
     });
   });
-  document.getElementById('enviar').addEventListener('click',function(){
-    document.getElementById('gracias').classList.add('on');
+  surveyForm.addEventListener('submit',function(event){
+    event.preventDefault();
+    if(selectedRating===null){
+      surveyError.hidden=false;
+      stars[0].focus();
+      return;
+    }
+    surveyError.hidden=true;
+    thanks.classList.remove('on');
+    submitButton.disabled=true;
+    submitButton.textContent='Enviando...';
+    fetch('/api/send-survey',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({rating:selectedRating,comment:comment.value.trim(),website:honeypot.value})
+    }).then(function(response){
+      if(!response.ok)throw new Error('No se pudo enviar la encuesta.');
+      thanks.textContent='¡Gracias por responder! Tu puntuación fue '+selectedRating+' de 5. Tu respuesta fue enviada.';
+      thanks.classList.add('on');
+    }).catch(function(error){
+      console.error('Error al enviar la encuesta:',error);
+      surveyError.textContent='No se pudo enviar la encuesta. Intentá nuevamente más tarde.';
+      surveyError.hidden=false;
+    }).finally(function(){
+      submitButton.disabled=false;
+      submitButton.textContent='Enviar encuesta';
+    });
   });
 })();
 </script>
