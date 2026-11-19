@@ -84,6 +84,8 @@ textarea::placeholder{color:var(--negro);opacity:.6}
 table{border-collapse:collapse;width:100%;min-width:560px}
 th,td{padding:.8rem 1rem;text-align:left;border-bottom:3px dotted var(--piel)}
 th{background:var(--piel);color:var(--negro);font-family:"Lilita One";font-weight:400;font-size:1.2rem}
+.asiento-divider th{padding:.45rem;border-bottom:3px solid var(--piel);background:var(--negro);text-align:center}
+.asiento-divider span{display:inline-grid;width:1.6rem;height:1.6rem;place-items:center;border:2px solid var(--piel);border-radius:50%;font-size:.9rem}
 tr:last-child td{border-bottom:0}
 .acciones{margin-top:1.4rem;display:flex;gap:1rem;flex-wrap:wrap}
 
