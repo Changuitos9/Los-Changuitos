@@ -54,7 +54,8 @@ h3{font-size:1.5rem;margin-bottom:.4rem}
 .foda .caja.rellena h3{background:var(--piel);color:var(--negro)}
 
 /* Integrantes */
-.integrante-img{display:block;width:100%;height:auto;border-radius:8px}
+#integrantes .caja{padding:0;overflow:hidden}
+.integrante-img{display:block;width:100%;height:auto}
 
 /* Precios */
 .lista{border:4px solid var(--piel);border-radius:20px;overflow:hidden}
