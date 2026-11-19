@@ -54,8 +54,7 @@ h3{font-size:1.5rem;margin-bottom:.4rem}
 .foda .caja.rellena h3{background:var(--piel);color:var(--negro)}
 
 /* Integrantes */
-.avatar{width:84px;height:84px;border-radius:50%;border:4px solid currentColor;display:grid;place-items:center;font-family:"Lilita One";font-size:2rem;margin-bottom:.8rem;background:var(--negro);color:var(--piel)}
-.caja.rellena .avatar{background:var(--piel);color:var(--negro);border-color:var(--negro)}
+.integrante-img{display:block;width:100%;height:auto;border-radius:8px}
 
 /* Precios */
 .lista{border:4px solid var(--piel);border-radius:20px;overflow:hidden}
